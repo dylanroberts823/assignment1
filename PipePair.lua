@@ -25,7 +25,6 @@ function PipePair:init(y)
 
     -- initialize a new random Gap difference
     GAP_EXTRA = math.random(0, 50)
-    print(GAP_EXTRA)
 
     -- instantiate two pipes that belong to this pair
     self.pipes = {
