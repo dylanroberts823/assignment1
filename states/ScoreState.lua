@@ -8,6 +8,8 @@
     PlayState when they collide with a Pipe.
 ]]
 
+-- credits to https://github.com/mesporas1/Fifty-Bird-Assignment for the stars
+
 ScoreState = Class{__includes = BaseState}
 
 --[[
@@ -35,19 +37,31 @@ function drawStar(score)
   local silverStar = love.graphics.newImage('silver-star.png')
   local goldStar = love.graphics.newImage('gold-star.png')
 
+  -- No star is default star
+  star = nil
+
   --Display the appropriate text
   if score < 1 then
-    love.graphics.printf('Oof! You lost!', 0, 12, VIRTUAL_WIDTH, 'center')
+    text = 'Oof! You lost! Can you get to 1?'
   elseif score < 3 then
-    love.graphics.draw(brownStar, VIRTUAL_WIDTH/2, 12)
-    love.graphics.printf('Congratulations! You got a Brown Star! Can you get to 3?', 0, 64, VIRTUAL_WIDTH, 'center')
+    star = brownStar
+    text = 'Congratulations! You got a Brown Star! Can you get to 3?'
   elseif score < 5 then
-    love.graphics.draw(silverStar, VIRTUAL_WIDTH/2, 12)
-    love.graphics.printf('Congratulations! You got a Silver Star! Can you get to 5?', 0, 64, VIRTUAL_WIDTH, 'center')
+    star = silverStar
+    text = 'Congratulations! You got a Silver Star! Can you get to 5?'
   else
-    love.graphics.draw(goldStar, VIRTUAL_WIDTH/2, 12)
-    love.graphics.printf('Congratulations! You got a Gold Star!', 0, 64, VIRTUAL_WIDTH, 'center')
+    star = goldStar
+    text = 'Congratulations! You got a Gold Star!'
   end
+
+  --Print the star and appropriate text
+  if star ~= nil then
+    --Define the width for the star
+    x = VIRTUAL_WIDTH/2 - star:getWidth()
+    love.graphics.draw(star, x, 12)
+  end
+
+  love.graphics.printf(text, 0, 64, VIRTUAL_WIDTH, 'center')
 end
 
 function ScoreState:render()
